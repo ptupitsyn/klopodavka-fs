@@ -1,2 +1,4 @@
 # klopodavka-fs
-Klopodavka F#
+Klopodavka in F# and Blazor
+
+In action: https://klopodavka.netlify.com
