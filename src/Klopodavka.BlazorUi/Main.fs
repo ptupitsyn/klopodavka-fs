@@ -81,6 +81,9 @@ type TableCell() =
         ] [
             text txt
         ]
+        
+    override this.ShouldRender (oldModel, newModel) =
+        oldModel.Available <> newModel.Available || oldModel.Tile <> newModel.Tile
 
 let homePage model dispatch =
     Main.Home()
