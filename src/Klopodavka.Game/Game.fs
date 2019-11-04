@@ -34,8 +34,8 @@ let rows gameState =
     Board.moves gameState.Board gameState.CurrentPlayer
         |> Seq.iter (fun (x, y) -> avail.[x, y] <- true)
         
-    { 0 .. h - 1 }|> Seq.map (
-                             fun y -> { 0 .. w - 1 } |> Seq.map (
-                                                                fun x -> (x, y, tiles.[x, y], avail.[x, y])
-                                                            )
-                         )
+    seq {
+        for y = 0 to h - 1 do yield seq {
+            for x = 0 to w - 1 do yield (x, y, tiles.[x, y], avail.[x, y])
+        }
+    } 
