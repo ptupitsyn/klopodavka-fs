@@ -8,7 +8,7 @@ let DefaultWidth = 30
 let DefaultHeight = 30
 
 [<Literal>]
-let BaseOffset = 5
+let BaseOffset = 2
 
 [<Literal>]
 let MinSize = 20
@@ -23,8 +23,8 @@ let size board =
 
 let basePosition player width height =
     match player with
-        | Red -> (width - BaseOffset, BaseOffset)
-        | Blue -> (BaseOffset, height - BaseOffset)
+        | Red -> (width - BaseOffset - 1, BaseOffset)
+        | Blue -> (BaseOffset, height - BaseOffset - 1)
 
 let createBoard() =
     let arr = Array2D.create DefaultWidth DefaultHeight Empty

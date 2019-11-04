@@ -15,24 +15,15 @@ type Page =
 type Model =
     {
         page: Page
-        error: string option
-        username: string
-        password: string
-        signedInAs: option<string>
-        signInFailed: bool
         gameState: GameState
+        error: string option
     }
-
 
 let initModel =
     {
         page = Home
-        error = None
-        username = ""
-        password = ""
-        signedInAs = None
-        signInFailed = false
         gameState = Game.createGame()        
+        error = None
     }
 
 /// The Elmish application's update messages.

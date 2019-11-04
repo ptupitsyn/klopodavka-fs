@@ -2,9 +2,14 @@ html, body {
   height: 100%;
 }
 
-body {
+html {
+  display: table;
   margin: auto;
-  width: 640px;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #notification-area {
@@ -36,8 +41,8 @@ td {
   border: 1px solid #dbdbdb;
   padding: 0;
   margin: 0;
-  width: 21px;
-  height: 21px;
+  width: 25px;
+  height: 25px;
   background-color: #fafafa;
   vertical-align: middle;
   text-align: center;

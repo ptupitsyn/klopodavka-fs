@@ -1,4 +1,4 @@
-# Blazor-bazed web UI
+# Blazor-based web UI
 
 The UI is client-only, there is no server-side logic.
 Only static files are produced to be served by any web server.
