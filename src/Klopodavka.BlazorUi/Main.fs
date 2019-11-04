@@ -69,6 +69,18 @@ let renderTile tile avail =
             | Empty -> "", ""
             
     if (avail) then ("·", style + "; cursor: pointer") else (text, style)
+    
+type TableCell() =
+    inherit ElmishComponent<TileInfo, Message>()
+    
+    override this.View cell dispatch =
+        let txt, style = renderTile cell.Tile cell.Available
+        td [
+            attr.style style
+            on.click (fun _ -> if cell.Available then (dispatch (MakeMove (cell.X, cell.Y))) else ())
+        ] [
+            text txt
+        ]
 
 let homePage model dispatch =
     Main.Home()
@@ -77,14 +89,8 @@ let homePage model dispatch =
         .GameBoard(table [] [
             forEach (Game.rows model.gameState) <| fun row ->
                 tr [] [
-                    forEach row <| fun (x, y, tile, avail) ->
-                        let txt, style = renderTile tile avail
-                        td [
-                            attr.style style
-                            on.click (fun _ -> if avail then (dispatch (MakeMove (x, y))) else ())
-                        ] [
-                            text txt
-                        ]
+                    forEach row <| fun cell ->
+                        ecomp<TableCell, _, _> cell dispatch
                 ]
         ])
         .Elt()

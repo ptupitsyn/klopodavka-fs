@@ -16,4 +16,11 @@ type GameState = {
     ClopsPerTurn: int32;
     ClopsLeft: int32;
 }
+
+type TileInfo = {
+    X: int32;
+    Y: int32;
+    Tile: Tile;
+    Available: bool;
+}
     

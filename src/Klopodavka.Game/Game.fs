@@ -36,6 +36,6 @@ let rows gameState =
         
     seq {
         for y = 0 to h - 1 do yield seq {
-            for x = 0 to w - 1 do yield (x, y, tiles.[x, y], avail.[x, y])
+            for x = 0 to w - 1 do yield { X = x; Y = y; Tile = tiles.[x, y]; Available = avail.[x, y] }
         }
     } 
