@@ -7,7 +7,7 @@ let DefaultClopsPerTurn = 7
 let createGame(): GameState =
     {
         Board = Board.createBoard()
-        CurrentPlayer = Red
+        CurrentPlayer = Blue
         ClopsPerTurn = DefaultClopsPerTurn
         ClopsLeft = DefaultClopsPerTurn
     }
@@ -39,3 +39,26 @@ let rows gameState =
             for x = 0 to w - 1 do yield { X = x; Y = y; Tile = tiles.[x, y]; Available = avail.[x, y] }
         }
     } 
+
+let makeRandomMove gameState =
+    let tiles = Board.tiles gameState.Board
+    let w, h = Board.size gameState.Board
+    
+    let isNotEmpty (x, y) = tiles.[x, y] <> Empty
+    
+    let hasOneNeighbor (x, y) =
+        Board.neighbors w h x y
+        |> Seq.filter isNotEmpty
+        |> Seq.filter (fun (x1, y1) -> x1 <> x && y1 <> y) // Diagonal
+        |> Seq.length = 1
+        
+    let moves =
+        Board.moves gameState.Board gameState.CurrentPlayer
+        |> Seq.filter hasOneNeighbor
+        |> Seq.toList
+        
+    if moves.IsEmpty then gameState else
+        let rnd = System.Random()
+        let idx = rnd.Next moves.Length
+        let (x, y) = moves.Item idx
+        makeMove gameState x y

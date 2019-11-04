@@ -31,6 +31,7 @@ type Message =
     | SetPage of Page
     | NewGame
     | MakeMove of int * int
+    | MakeRandomMove
     | Error of exn
     | ClearError
 
@@ -43,6 +44,9 @@ let update message model =
         { model with gameState = Game.createGame() }, Cmd.none
     | MakeMove (x, y) ->
         let newState = Game.makeMove model.gameState x y
+        { model with gameState = newState }, Cmd.none
+    | MakeRandomMove ->
+        let newState = Game.makeRandomMove model.gameState
         { model with gameState = newState }, Cmd.none
 
     | Error exn ->
@@ -88,6 +92,7 @@ type TableCell() =
 let homePage model dispatch =
     Main.Home()
         .NewGame(fun _ -> dispatch NewGame)
+        .RandomMove(fun _ -> dispatch MakeRandomMove)
         .GameInfo(b [] [text (sprintf "Player: %O | Clicks: %O" model.gameState.CurrentPlayer model.gameState.ClopsLeft)])
         .GameBoard(table [] [
             forEach (Game.rows model.gameState) <| fun row ->
