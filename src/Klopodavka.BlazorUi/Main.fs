@@ -120,8 +120,4 @@ type MyApp() =
 
     override this.Program =
         Program.mkProgram (fun _ -> initModel, Cmd.none) update view
-        // |> Program.withConsoleTrace        
         |> Program.withRouter router
-#if DEBUG
-        |> Program.withHotReload
-#endif
