@@ -46,7 +46,7 @@ let update message model =
         let newState = Game.makeMove model.gameState x y
         { model with gameState = newState }, Cmd.none
     | MakeRandomMove ->
-        let newState = Game.makeRandomMove model.gameState
+        let newState = Ai.makeRandomMove model.gameState
         { model with gameState = newState }, Cmd.none
 
     | Error exn ->
