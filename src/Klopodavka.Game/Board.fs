@@ -21,6 +21,10 @@ let size board =
     let arr = tiles board
     (arr.GetLength(0), arr.GetLength(1))
 
+let tileSeq board =
+    let w, h = size board
+    seq { for x = 0 to w - 1 do for y = 0 to h - 1 do yield tile board x y }    
+
 let basePosition player width height =
     match player with
         | Red -> (width - BaseOffset - 1, BaseOffset)

@@ -26,4 +26,8 @@ let makeRandomMove game =
 
 let makeAiMove game =
     let tiles, w, h = Game.tilesAndSize game
-    game
+    let tileSeq = Board.tileSeq game.Board
+    let isSquashed tile = match tile with Squashed _ -> true | _ -> false
+    let fightStarted = tileSeq |> Seq.exists isSquashed
+        
+    fightStarted
