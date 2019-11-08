@@ -1,8 +1,7 @@
 ﻿module Klopodavka.Game.Ai
 
-let makeRandomMove gameState =
-    let tiles = Board.tiles gameState.Board
-    let w, h = Board.size gameState.Board
+let makeRandomMove game =
+    let tiles, w, h = Game.tilesAndSize game
     
     let isNotEmpty (x, y) = tiles.[x, y] <> Empty
     
@@ -13,12 +12,16 @@ let makeRandomMove gameState =
         |> Seq.length = 1
         
     let moves =
-        Board.moves gameState.Board gameState.CurrentPlayer
+        Board.moves game.Board game.CurrentPlayer
         |> Seq.filter hasOneNeighbor
         |> Seq.toList
         
-    if moves.IsEmpty then gameState else
+    if moves.IsEmpty then game else
         let rnd = System.Random()
         let idx = rnd.Next moves.Length
         let (x, y) = moves.Item idx
-        Game.makeMove gameState x y
+        Game.makeMove game x y
+
+let makeAiMove game =
+    let tiles, w, h = Game.tilesAndSize game
+    game

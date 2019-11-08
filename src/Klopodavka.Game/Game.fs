@@ -16,22 +16,22 @@ let otherPlayer player =
     if (player = Red) then Blue else Red
 
 let makeMove game x y =
-    let nextClop game =
-        let lastClop = game.ClopsLeft = 1
-        let clopsLeft = if lastClop then game.ClopsPerTurn else game.ClopsLeft - 1
-        let player = if lastClop then otherPlayer(game.CurrentPlayer) else game.CurrentPlayer
-        { game with CurrentPlayer = player; ClopsLeft = clopsLeft }
-        
-    let board = Board.makeMove game.Board game.CurrentPlayer x y    
-    { (nextClop game) with Board = board  }
+    let board = Board.makeMove game.Board game.CurrentPlayer x y
+    let lastClop = game.ClopsLeft = 1
+    let clopsLeft = if lastClop then game.ClopsPerTurn else game.ClopsLeft - 1
+    let player = if lastClop then otherPlayer(game.CurrentPlayer) else game.CurrentPlayer
+    { game with CurrentPlayer = player; ClopsLeft = clopsLeft; Board = board }
     
+let tilesAndSize game =
+    let tiles = Board.tiles game.Board
+    let w, h = Board.size game.Board
+    (tiles, w, h)    
 
-let rows gameState =
-    let tiles = Board.tiles gameState.Board
-    let w, h = Board.size gameState.Board
+let rows game =
+    let tiles, w, h = tilesAndSize game
     let avail = Array2D.create w h false
     
-    Board.moves gameState.Board gameState.CurrentPlayer
+    Board.moves game.Board game.CurrentPlayer
         |> Seq.iter (fun (x, y) -> avail.[x, y] <- true)
         
     seq {
