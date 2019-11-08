@@ -34,10 +34,11 @@ let makeSquashMove game =
     let move =
         moves
         |> Seq.filter isSquashMove
-        |> Seq.head
+        |> Seq.tryHead
         
-    let x, y = move        
-    Game.makeMove game x y
+    match move with
+    | Some (x, y) -> Game.makeMove game x y
+    | _ -> makeRandomMove game
 
 let makeAiMove game =
     let tileSeq = Board.tileSeq game.Board
