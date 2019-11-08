@@ -9,12 +9,12 @@ let makeRandomMove game =
     let hasOneNeighbor (x, y) =
         Board.neighbors w h x y
         |> Seq.filter isNotEmpty
-        |> Seq.filter isNotBorder
         |> Seq.filter (fun (x1, y1) -> x1 <> x && y1 <> y) // Diagonal
         |> Seq.length = 1
         
     let moves =
         Board.moves game.Board game.CurrentPlayer
+        |> Seq.filter isNotBorder
         |> Seq.filter hasOneNeighbor
         |> Seq.toList
         
