@@ -1,0 +1,16 @@
+﻿{
+  "short_name": "Klopodavka",
+  "name": "Klopodavka",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#FAFAFA"
+}
