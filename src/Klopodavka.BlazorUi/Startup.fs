@@ -11,7 +11,7 @@ type Startup() =
 module Program =
 
     [<EntryPoint>]
-    let Main args =
+    let Main _ =
         BlazorWebAssemblyHost.CreateDefaultBuilder()
             .UseBlazorStartup<Startup>()
             .Build()
